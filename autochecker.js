@@ -109,19 +109,91 @@ console.log(customer.getBalance()); // 19750
 console.log(customer.getOrders()); // ['Burger', 'Pizza', 'Salad', 'Steak']
 
 // 7
-const orders = [
-  { email: 'solomon@topmail.ua', dish: 'Burger' },
-  { email: 'artemis@coldmail.net', dish: 'Pizza' },
-  { email: 'jacob@mail.com', dish: 'Taco' },
-];
+// const orders = [
+//   { email: 'solomon@topmail.ua', dish: 'Burger' },
+//   { email: 'artemis@coldmail.net', dish: 'Pizza' },
+//   { email: 'jacob@mail.com', dish: 'Taco' },
+// ];
 
-// Пиши код ниже этой строки
-function composeMessage(position) {
-  for (const item of arr) {
-    console.log(item);
-  }
-  // return 	`Готовим <блюдо> для <почта>. Ваш заказ ${position}-й в очереди.`;
+// // Пиши код ниже этой строки
+// function composeMessage(position) {
+// return `Готовим ${this.dish} для ${this.email}. Ваш заказ ${position}-й в очереди.`
+// }
+
+// const messages = [];
+// for(let i = 0; i < orders.length; i += 1) {
+// 	let result = composeMessage.call(orders[i], i + 1);
+//   messages.push(result)
+// }
+
+
+// 8
+// const orders = [
+//   { email: "solomon@topmail.ua", dish: "Burger" },
+//   { email: "artemis@coldmail.net", dish: "Pizza" },
+//   { email: "jacob@mail.com", dish: "Taco" },
+// ];
+
+// function composeMessage(position) {
+//   return `Готовим ${this.dish} для ${this.email}. Ваш заказ ${position}-й в очереди.`;
+// }
+
+// const messages = [];
+// for (let i = 0; i < orders.length; i++) {
+//   const msg = composeMessage.apply(orders[i], [i + 1]);
+//   messages.push(msg);
+
+// // 9
+
+//   const pizzaPalace = {
+//   company: 'Pizza Palace',
+// };
+
+// const burgerShack = {
+//   company: 'Burger Shack',
+// };
+
+// function composeMessage(customerName) {
+//   return `${customerName}, всегда рады вас видеть в «${this.company}».`;
+// }
+
+// const pizzaPalaceComposer = composeMessage.bind(pizzaPalace);
+// const pizzaPalaceMessage = pizzaPalaceComposer('Манго');
+
+// const burgerShackComposer = composeMessage.bind(burgerShack);
+// const burgerShackMessage = burgerShackComposer('Поли');
+
+// 10
+/*
+  Сервису рассылки электронной почты необходимо добавить логирование действий для сбора статистики. 
+  Функция logAndInvokeAction(email, action) ожидает почту и действие которое нужно выполнить - ссылку 
+  на метод объекта service. Сбор статистики симулируется логированием строки. Разберись и дополни код так, 
+  чтобы он работал верно.
+*/
+
+const service = {
+  mailingList: ['mango@mail.com', 'poly@hotmail.de', 'ajax@jmail.net'],
+  subscribe(email) {
+    this.mailingList.push(email);
+    return `Почта ${email} добавлена в рассылку.`;
+  },
+  unsubscribe(email) {
+    this.mailingList = this.mailingList.filter((e) => e !== email);
+    return `Почта ${email} удалена из рассылки.`;
+  },
+};
+
+function logAndInvokeAction(email, action) {
+  console.log(`Выполняем действие с ${email}.`);
+  return action(email);
 }
 
-const messages = [];
-console.log(composeMessage.call(orders));
+const firstInvoke = logAndInvokeAction('kiwi@mail.uk', service.subscribe.bind(service));
+console.log('firstInvoke', firstInvoke);
+
+console.log('service.mailingList', service.mailingList);
+
+const secondInvoke = logAndInvokeAction('poly@hotmail.de', service.unsubscribe.bind(service));
+console.log(secondInvoke);
+console.log(service.mailingList); 
+
