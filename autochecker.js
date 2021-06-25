@@ -1,199 +1,360 @@
-// 1
-// function makePizza() {
-//   return 'Ваша пицца готовится, ожидайте.';
+//1
+
+// function Car (brand, model, price) {
+// 	  this.brand = brand,
+//       this.model = model,
+//       this.price = price
 // }
 
-// const result = makePizza();
-// const pointer = makePizza;
-// console.log(result);
-// console.log(pointer);
+// const car1 = new Car('Audi', 'Q3', 36000)
 
-//2
 
-function deliverPizza(pizzaName) {
-  return `Доставляем пиццу ${pizzaName}.`;
-}
+//5
 
-function makePizza(pizzaName) {
-  return `Пицца ${pizzaName} готовится, ожидайте...`;
-}
+// function Car({ brand, model, price }) {
+//   this.brand = brand;
+//   this.model = model;
+//   this.price = price;
+// }
 
-// Пиши код ниже этой строки
-function makeMessage(pizzaName, callback) {
-  return callback(pizzaName);
-}
+// Car.prototype.getPrice = function() {
+// 	return this.price
+// }
 
-// 3
+// Car.prototype.changePrice= function (newPrice) {
+// 	return this.price = newPrice;
+// }
 
-// const pizzaPalace = {
-//   pizzas: ['Ультрасыр', 'Аль Копчино', 'Четыре нарезона'],
-//   order(pizzaName, onSuccess, onError) {
-//     if (!this.pizzas.includes(pizzaName)) {
-//       return onError(pizzaName);
-//     }
-//     return onSuccess(pizzaName)
+//6
+
+// function Storage(items) {
+// 	this.items = items
+// }
+// Storage.prototype.getItems = function () {
+//   return this.items;
+// }
+
+// Storage.prototype.addItem = function (item) {
+//   return this.items.push(item)
+// }
+
+// Storage.prototype.removeItem = function (item) {
+//   return this.items.splice(this.items.indexOf(item), 1)
+// }
+// // Пиши код выше этой строки
+// const storage = new Storage(['Нанитоиды', 'Пролонгер', 'Антигравитатор']);
+// console.log(storage.getItems()); // ["Нанитоиды", "Пролонгер", "Антигравитатор"]
+// storage.addItem('Дроид');
+// console.log(storage.getItems()); // ["Нанитоиды", "Пролонгер", "Антигравитатор", "Дроид"]
+// storage.removeItem('Пролонгер');
+// console.log(storage.getItems()); // ["Нанитоиды", "Антигравитатор", "Дроид"]
+
+
+// 7
+
+// function StringBuilder(baseValue) {
+//   this.value = baseValue;
+// }
+// StringBuilder.prototype.getValue = function() {
+// 	return this.value;
+// }
+
+// StringBuilder.prototype.padEnd = function (str) {
+// 	return this.value += str;
+// }
+
+// StringBuilder.prototype.padStart = function (str) {
+// 	return this.value = str + this.value
+// }
+
+// StringBuilder.prototype.padBoth = function(str) {
+// 	return this.value = str + this.value + str
+// }
+
+
+// const builder = new StringBuilder('.');
+// console.log(builder.getValue()); // '.'
+// builder.padStart('^');
+// console.log(builder.getValue()); // '^.'
+// builder.padEnd('^');
+// console.log(builder.getValue()); // '^.^'
+// builder.padBoth('=');
+// console.log(builder.getValue()); // '=^.^='
+
+// 11
+
+// class Car {
+//   #brand
+//   constructor({ brand, model, price }) {
+//     this.#brand = brand;
+//     this.model = model;
+//     this.price = price;
+//   }
+//   getBrand() {
+//   return this.#brand;
+//   }
+//   changeBrand(newBrand){
+//   return this.#brand = newBrand;
 //   }
 // }
 
-// // Колбэк для onSuccess
-// function makePizza(pizzaName) {
-//   return `Ваш заказ принят. Готовим пиццу ${pizzaName}.`;
-// }
+// 12
 
-// // Колбэк для onError
-// function onOrderError(error) {
-//   return `Ошибка! В ассортименте нет пиццы с названием ${error}`;
-// }
+class Storage {
+  #items
+  constructor(items){
+ 	 this.#items = items;
+  }
 
-// // Вызовы метода с колбэками
-// console.log(pizzaPalace.order('Биг майк', makePizza, onOrderError));
-// console.log(pizzaPalace.order('Аль Копчино', makePizza, onOrderError));;
-// console.log(pizzaPalace.order('Четыре нарезона', makePizza, onOrderError));
-// console.log(pizzaPalace.order('Биг майк', makePizza, onOrderError));
-// console.log(pizzaPalace.order('Венская', makePizza, onOrderError));
+  getItems () {
+    return this.#items;
+  };
 
+  addItem (newItem) {
+    this.#items.push(newItem);
+  };
 
-// 5
-
-const pizzaPalace = {
-  pizzas: ['Ультрасыр', 'Аль Копчино', 'Четыре нарезона'],
-  // Пиши код ниже этой строки
-  checkPizza(pizzaName) {
-    return this.pizzas.includes(pizzaName);
-  },
-  order(pizzaName, checkPizza) {
-    const isPizzaAvailable = this.checkPizza(pizzaName);
-
-    if (!isPizzaAvailable) {
-      return `В ассортименте нет пиццы с названием «${pizzaName}».`;
-    }
-
-    return `Заказ принят, готовим пиццу «${pizzaName}».`;
-  },
-  // Пиши код выше этой строки
-};
-
-console.log(pizzaPalace.order('Аль Копчино'));
-
-// 6
-
-const customer = {
-  username: 'Mango',
-  balance: 24000,
-  discount: 0.1,
-  orders: ['Burger', 'Pizza', 'Salad'],
-  // Пиши код ниже этой строки
-  getBalance() {
-    return this.balance;
-  },
-  getDiscount() {
-    return this.discount;
-  },
-  setDiscount(value) {
-    this.discount = value;
-  },
-  getOrders() {
-    return this.orders;
-  },
-  addOrder(cost, order) {
-    this.balance -= cost - cost * this.discount;
-    this.orders.push(order);
-  },
-  // Пиши код выше этой строки
-};
-
-customer.setDiscount(0.15);
-console.log(customer.getDiscount()); // 0.15
-customer.addOrder(5000, 'Steak');
-console.log(customer.getBalance()); // 19750
-console.log(customer.getOrders()); // ['Burger', 'Pizza', 'Salad', 'Steak']
-
-// 7
-// const orders = [
-//   { email: 'solomon@topmail.ua', dish: 'Burger' },
-//   { email: 'artemis@coldmail.net', dish: 'Pizza' },
-//   { email: 'jacob@mail.com', dish: 'Taco' },
-// ];
-
-// // Пиши код ниже этой строки
-// function composeMessage(position) {
-// return `Готовим ${this.dish} для ${this.email}. Ваш заказ ${position}-й в очереди.`
-// }
-
-// const messages = [];
-// for(let i = 0; i < orders.length; i += 1) {
-// 	let result = composeMessage.call(orders[i], i + 1);
-//   messages.push(result)
-// }
-
-
-// 8
-// const orders = [
-//   { email: "solomon@topmail.ua", dish: "Burger" },
-//   { email: "artemis@coldmail.net", dish: "Pizza" },
-//   { email: "jacob@mail.com", dish: "Taco" },
-// ];
-
-// function composeMessage(position) {
-//   return `Готовим ${this.dish} для ${this.email}. Ваш заказ ${position}-й в очереди.`;
-// }
-
-// const messages = [];
-// for (let i = 0; i < orders.length; i++) {
-//   const msg = composeMessage.apply(orders[i], [i + 1]);
-//   messages.push(msg);
-
-// // 9
-
-//   const pizzaPalace = {
-//   company: 'Pizza Palace',
-// };
-
-// const burgerShack = {
-//   company: 'Burger Shack',
-// };
-
-// function composeMessage(customerName) {
-//   return `${customerName}, всегда рады вас видеть в «${this.company}».`;
-// }
-
-// const pizzaPalaceComposer = composeMessage.bind(pizzaPalace);
-// const pizzaPalaceMessage = pizzaPalaceComposer('Манго');
-
-// const burgerShackComposer = composeMessage.bind(burgerShack);
-// const burgerShackMessage = burgerShackComposer('Поли');
-
-// 10
-/*
-  Сервису рассылки электронной почты необходимо добавить логирование действий для сбора статистики. 
-  Функция logAndInvokeAction(email, action) ожидает почту и действие которое нужно выполнить - ссылку 
-  на метод объекта service. Сбор статистики симулируется логированием строки. Разберись и дополни код так, 
-  чтобы он работал верно.
-*/
-
-const service = {
-  mailingList: ['mango@mail.com', 'poly@hotmail.de', 'ajax@jmail.net'],
-  subscribe(email) {
-    this.mailingList.push(email);
-    return `Почта ${email} добавлена в рассылку.`;
-  },
-  unsubscribe(email) {
-    this.mailingList = this.mailingList.filter((e) => e !== email);
-    return `Почта ${email} удалена из рассылки.`;
-  },
-};
-
-function logAndInvokeAction(email, action) {
-  console.log(`Выполняем действие с ${email}.`);
-  return action(email);
+  removeItem (item) {
+    const itemIndex = this.#items.indexOf(item);
+    this.#items.splice(itemIndex, 1);
+  }
 }
 
-const firstInvoke = logAndInvokeAction('kiwi@mail.uk', service.subscribe.bind(service));
-console.log('firstInvoke', firstInvoke);
+// Пиши код выше этой строки
+const storage = new Storage(["Нанитоиды", "Пролонгер", "Антигравитатор"]);
+console.log(storage.getItems()); // ["Нанитоиды", "Пролонгер", "Антигравитатор"]
+storage.addItem("Дроид");
+console.log(storage.getItems()); // ["Нанитоиды", "Пролонгер", "Антигравитатор", "Дроид"]
+storage.removeItem("Пролонгер");
+console.log(storage.getItems()); // ["Нанитоиды", "Антигравитатор", "Дроид"]
 
-console.log('service.mailingList', service.mailingList);
+// 13
 
-const secondInvoke = logAndInvokeAction('poly@hotmail.de', service.unsubscribe.bind(service));
-console.log(secondInvoke);
-console.log(service.mailingList); 
+// class StringBuilder {
+//   #value
+//   constructor(baseValue) {
+//   	this.#value = baseValue;
+//   }
+//   getValue () {
+//  	 return this.#value;
+//   };
+  
+//   padEnd (str) {
+//   	this.#value += str;
+//   };
+  
+//   padStart (str) {
+//   	this.#value = str + this.#value;
+//   };
+  
+//   padBoth (str) {
+//   	this.padStart(str);
+//   	this.padEnd(str);
+//   };
+// }
 
+
+// // Пиши код выше этой строки
+// const builder = new StringBuilder('.');
+// console.log(builder.getValue()); // '.'
+// builder.padStart('^');
+// console.log(builder.getValue()); // '^.'
+// builder.padEnd('^');
+// console.log(builder.getValue()); // '^.^'
+// builder.padBoth('=');
+// console.log(builder.getValue()); // '=^.^='
+
+// 14
+
+// class Car {
+//   #model;
+//   #price;
+//   #brand;
+
+//   constructor({ brand, model, price }) {
+//     this.#brand = brand;
+//     this.model = model;
+//     this.price = price;
+//   }
+
+//   get brand() {
+//     return this.#brand;
+//   }
+
+//   set brand(newBrand) {
+//     this.#brand = newBrand;
+//   }
+
+//   get model() {
+//     return this.#model;
+//   }
+
+//   set model(newModel) {
+//     this.#model = newModel;
+//   }
+
+//   get price() {
+//     return this.#price;
+//   }
+
+//   set price(newPrice) {
+//     this.#price = newPrice;
+//   }
+// }
+
+// 15
+
+// class Car {
+//   // Пиши код ниже этой строки
+//   static MAX_PRICE = 50000;
+//   #price;
+
+//   constructor({ price }) {
+//     this.#price = price;
+//   }
+
+//   get price() {
+//     return this.#price;
+//   }
+
+//   set price(newPrice) {
+//     if(newPrice <= Car.MAX_PRICE) {
+//     	this.#price = newPrice;
+//     }
+//  	return
+//   }
+//   // Пиши код выше этой строки
+// }
+// const audi = new Car({price: 35000});
+// console.log(audi.price); // 35000
+
+// audi.price = 49000;
+// console.log(audi.price); // 49000
+
+// audi.price = 51000;
+// console.log(audi.price); // 49000
+
+// 16
+
+class Car {
+  static #MAX_PRICE = 50000;
+  // Пиши код ниже этой строки
+	static checkPrice(price) {
+    	if(price > Car.#MAX_PRICE) {
+        	return 'Внимание! Цена превышает допустимую.'
+        }
+      return 'Всё хорошо, цена в порядке.'
+    }
+  // Пиши код выше этой строки
+  constructor({ price }) {
+    this.price = price;
+  }
+}
+
+const audi = new Car({ price: 36000 });
+const bmw = new Car({ price: 64000 });
+
+console.log(Car.checkPrice(audi.price)); // Всё хорошо, цена в порядке.
+console.log(Car.checkPrice(bmw.price)); // Внимание! Цена превышает допустимую.
+
+// 17
+
+// class User {
+//   email;
+
+//   constructor(email) {
+//     this.email = email;
+//   }
+
+//   get email() {
+//     return this.email;
+//   }
+
+//   set email(newEmail) {
+//     this.email = newEmail;
+//   }
+// }
+
+// class Admin extends User {
+//   // Пиши код ниже этой строки
+
+//   static AccessLevel = {
+//     BASIC: 'basic',
+//     SUPERUSER: 'superuser'
+//   };
+  
+//   accessLevel
+
+//   // Пиши код выше этой строки
+//   constructor({email, accessLevel}) {
+//   	super(email)
+//     this.accessLevel = accessLevel;
+//   }
+// }
+
+// const mango = new Admin({
+//   email: 'mango@mail.com',
+//   accessLevel: Admin.AccessLevel.SUPERUSER
+// });
+
+// console.log(mango.email); // mango@mail.com
+// console.log(mango.accessLevel); // superuser
+
+// 18
+
+class User {
+  email;
+
+  constructor(email) {
+    this.email = email;
+  }
+
+  get email() {
+    return this.email;
+  }
+
+  set email(newEmail) {
+    this.email = newEmail;
+  }
+}
+class Admin extends User {
+  // Пиши код ниже этой строки
+  blacklistedEmails = [];
+  
+  static AccessLevel = {
+    BASIC: 'basic',
+    SUPERUSER: 'superuser'
+  };
+
+  accessLevel;
+
+  constructor({ email, accessLevel }) {
+    super(email);
+    this.accessLevel = accessLevel;
+  }
+  
+  blacklist(email) {
+  	this.blacklistedEmails.push(email);
+  }
+
+  isBlacklisted(email) {
+    if (!this.blacklistedEmails.indexOf(email)) {
+      return true
+    }
+    return false;
+  }
+  // Пиши код выше этой строки
+}
+
+const mango = new Admin({
+  email: 'mango@mail.com',
+  accessLevel: Admin.AccessLevel.SUPERUSER
+});
+
+console.log(mango.email); // mango@mail.com
+console.log(mango.accessLevel); // superuser
+mango.blacklist('poly@mail.com');
+console.log('mango.blacklist :>> ', mango.blacklist());
+console.log(mango.blacklistedEmails); // 'poly@mail.com'
+console.log('mango.isBlacklisted("mango@mail.com")', mango.isBlacklisted('mango@mail.com')); //  false
+console.log('mango.isBlacklisted("poly@mail.com")', mango.isBlacklisted('poly@mail.com')); // true 
