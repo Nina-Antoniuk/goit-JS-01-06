@@ -1,30 +1,5 @@
-// function Person({ firstName, lastName, age, gender, interest }) {
-//   this.firstName = firstName;
-//   this.lastName = lastName;
-//   this.age = age;
-//   this.gender = gender;
-//   this.interest = interest;
-// }
-
-// Person.prototype.greeting = function () {
-//   console.log(`Привет я ${this.firstName} ${this.lastName}`);
-// };
-
-// Person.prototype.bio = function () {
-//   console.log(
-//     `Привет ${this.firstName} мне ${this.age} лет. Мне нравиться ${this.interest}`
-//   );
-// };
-
 class Person {
-  //   firstName;
-  //   lastName;
-  //   age;
-  //   gender;
-  //   interest;
-
   constructor({ firstName, lastName, age, gender, interest }) {
-    // 1
     this.firstName = firstName;
     this.lastName = lastName;
     this.age = age;
@@ -35,100 +10,67 @@ class Person {
   greeting() {
     console.log(`Привет я ${this.firstName} ${this.lastName}`);
   }
-
+  
   bio() {
-    console.log(
-      `Привет ${this.firstName} мне ${this.age} лет. Мне нравиться ${this.interest}`
-    );
+    console.log(`Привет ${this.firstName} мне ${this.age} лет. Мне нравиться ${this.interest}`);
+  }
+
+}
+
+const user = new Person( {firstName: 'Karina', lastName: 'Smith', age: 16 , gender: 'female', interest: 'Astronomy'} )
+console.log('user', user);
+
+class Teacher extends Person {
+  constructor( {firstName, lastName, age, gender, interest, subject} ) {
+    super({firstName, lastName, age, gender, interest})
+    this.subject = subject;
   }
 }
 
-// const user = new Person({
-//   firstName: "Роман",
-//   lastName: "Savosko",
-//   age: 37,
-//   gender: "men",
-//   interest: "Fish",
-// });
+const teacher = new Teacher({firstName: 'Salazar', lastName: 'Dou', age: 40, gender: 'male', interest: 'football', subject: 'history'})
+console.log('teacher :>> ', teacher);
 
-// console.log(user);
+class Student extends Person {
+  constructor({firstName, lastName, age, gender, interest}) {
+    super({firstName, lastName, age, gender, interest})
+  }
 
-// class Teacher extends Person {
-//   constructor({ firstName, lastName, age, gender, interest }, subject) {
-//     super({ firstName, lastName, age, gender, interest });
-//     this.subject = subject;
-//   }
-// }
+  greeting () {
+   console.log("Hello, I am student");
+  }
+}
 
-// function Teacher({ firstName, lastName, age, gender, interest, subject }) {
-//   Person.apply(this, [{ firstName, lastName, age, gender, interest }]); // 5
-//   this.subject = subject;
-// }
+const student = new Student({firstName: 'Bob', lastName: 'Low', age: 26, gender: 'male', interest: 'coocking'})
+console.log(student)
 
-// Teacher.prototype = Object.create(Person.prototype);
-// Teacher.prototype.constructor = Teacher;
 
-// Teacher.prototype.greeting = function () {
-//   console.log("I am teacher method");
-// };
 
-// const teacher1 = new Teacher(
-//   {
-//     firstName: "Bob",
-//     lastName: "Sav",
-//     age: 32,
-//     gender: "men",
-//     interest: "Rok",
-//   },
-//   "Math"
-// );
+class Blog {
+  constructor(email) {
+    this.email = email;
+  }
+}
 
-// console.log(teacher1);
+class Post extends Blog {
+  constructor(email, post) {
+    super(email);
+    this.post = post;
+  }
 
-// function Student({ firstName, lastName, age, gender, interest }) {
-//   Person.call(this, { firstName, lastName, age, gender, interest }); // 1
-// }
-// Student.prototype = Object.create(Person.prototype);
-// Student.prototype.constructor = Student;
+  getInfo() {
+    return `this post from ${this.email}`
+  }
+}
 
-// Student.prototype.greeting = function () {
-//   console.log("Hello, I am student");
-// };
+const blog = new Blog("google.@gmail.com");
+console.log(`blog`, blog);
 
-// const student1 = new Student({
-//   firstName: "Jon",
-//   lastName: "Don",
-//   age: 15,
-//   gender: "men",
-//   interest: "footbal",
-// });
+const post = new Post("test@gmail.com", "Best post ever");
+console.log(`post`, post);
 
-// console.log(student1);
+console.log('getInfo(); :>> ', post.getInfo());
 
-// constructor({ email, posts }) {
-//     super(email);
-//     this.posts = posts;
 
-// class Blog {
-//   constructor(email) {
-//     this.email = email;
-//   }
-// }
-
-// class Post extends Blog {
-//   constructor(email, post) {
-//     super(email);
-//     this.post = post;
-//   }
-// }
-
-// const blog = new Blog("google.@gmail.com");
-// console.log(`blog`, blog);
-
-// const post = new Post("test@gmail.com", "Best post ever");
-// console.log(`post`, post);
-
-// post.getInfo();
 
 // class Phone {
 //   #color;
@@ -199,57 +141,54 @@ class Person {
 // Добавь метод getInfo(), который, возвращает строку:
 // User ${ имя } is ${ возраст } years old and has ${ кол - во постов } posts.
 
-// class User {
-//   constructor({ name, age, numberOfPosts }) {
-//     this.name = name;
-//     this.age = age;
-//     this.numberOfPosts = numberOfPosts;
-//   }
+class User {
+  constructor({name, age, numberOfPosts}) {
+    this.name = name;
+    this.age = age;
+    this.numberOfPosts = numberOfPosts;
+  }
 
-//   getInfo() {
-//     return `User ${this.name} is ${this.age} years old and has ${this.numberOfPosts} posts`;
-//   }
+  getInfo () {
+    return `User ${this.name} is ${ this.age } years old and has ${ this.numberOfPosts } posts.`
+  }
+}
 
-//   greeting = () => {
-//     return `Hello ${this.name}`;
-//   };
-// }
+const mango = new User({
+  name: "Mango",
+  age: 24,
+  numberOfPosts: 20,
+});
 
-// class SuperUser extends User {
-//   constructor({ name, age, numberOfPosts }) {
-//     super({ name, age, numberOfPosts });
-//   }
-// }
 
-// const mango = new User({
-//   name: "Mango",
-//   age: 24,
-//   numberOfPosts: 20,
-// });
+class SuperUser extends User {
+  constructor({name, age, numberOfPosts}) {
+    super({name, age, numberOfPosts})
+  }
+}
 
-// const bob = new SuperUser({
-//   name: "Bob",
-//   age: 43,
-//   numberOfPosts: 12,
-// });
+const bob = new SuperUser({
+  name: "Bob",
+  age: 43,
+  numberOfPosts: 12,
+});
 
-// console.log(`mango`, mango);
+console.log(`mango`, mango);
 
-// console.log(mango.getInfo()); // User Mango is 24 years old and has 20 posts
+console.log(mango.getInfo()); // User Mango is 24 years old and has 20 posts
 // console.log(mango.greeting());
 
-// console.log(`bob`, bob);
+console.log(`bob`, bob);
 
-// console.log(bob.getInfo()); // User Mango is 24 years old and has 20 posts
+console.log(bob.getInfo()); // User Mango is 24 years old and has 20 posts
 // console.log(bob.greeting());
 
-//   const poly = new User({
-//     name: 'Poly',
-//     age: 19,
-//     numberOfPosts: 17,
-//   });
+  const poly = new User({
+    name: 'Poly',
+    age: 19,
+    numberOfPosts: 17,
+  });
 
-//   console.log(poly.getInfo()); // User Poly is 19 years old and has 17 posts
+  console.log(poly.getInfo()); // User Poly is 19 years old and has 17 posts
 
 // 3) Напиши класс Storage который создаёт объекты для управления складом товаров.
 // При вызове будет получать один аргумент - начальный массив товаров, и записывать его в свойство items.
@@ -260,94 +199,85 @@ class Person {
 // addItem(item) - получает новый товар и добавляет его к текущим.
 // removeItem(item) - получет товар и, если он есть, удаляет его из текущих.
 
-// class Storage {
-//   constructor(items) {
-//     this.items = items;
-//   }
+class Storage {
+  constructor(items) {
+    this.items = items;
+  }
 
-//   getItems() {
-//     return this.items;
-//   }
+  getItems() {
+    return this.items;
+  }
 
-//   addItem(item) {
-//     this.items.push(item);
-//   }
+  addItem(item) {
+    this.items.push(item);
+  }
 
-//   removeItem(item) {
-//     const index = this.items.indexOf(item);
-//     if (index === -1) {
-//       return;
-//     } else {
-//       this.items.splice(index, 1);
-//     }
-//     //   this.items.splice(this.items.indexOf(item), 1)
-//   }
-// }
+  removeItem(item) {
+    this.items.splice(this.items.indexOf(item), 1)
+  }
+}
 
-// const storage = new Storage(["Яблоки", "Бананы", "Кокосы", "Киви"]);
+const store = new Storage(["Яблоки", "Бананы", "Кокосы", "Киви"]);
+console.log(store);
 
-// const items = storage.getItems();
+const items = store.getItems();
 
-// storage.addItem("Манго");
-// storage.removeItem("Киви");
+store.addItem("Манго");
+store.removeItem("Киви");
 
-// console.table(items);
+console.table(items);
+
 
 // 4) Напиши класс Client который создаёт объект со свойствами login и email.
 // Объяви приватные свойства #login и #email, доступ к которым сделай через геттер и сеттер login и email.
 
-// class Client {
-//   #login;
-//   #email;
 
-//   constructor({ login, email }) {
-//     this.#login = login;
-//     this.#email = email;
-//   }
+class Client {
+  #login
+  #email
+  constructor({ login, email }) {
+    this.#login = login;
+    this.#email = email;
+  }
 
-//   static Priority = {
-//     LOW: "low",
-//     NORMAL: "normal",
-//     HIGH: "high",
-//   };
+  get login() {
+    return this.#login;
+  }
 
-//   get login() {
-//     return this.#login;
-//   }
+  set login(newlogin) {
+    this.#login = newlogin;
+  }
 
-//   get email() {
-//     return this.#email;
-//   }
+  get email () {
+    return this.#email;
+  }
 
-//   set login(newLogin) {
-//     this.#login = newLogin;
-//   }
+  set email(newemail) {
+    this.#email = newemail;
+  }
+}
 
-//   set email(newEmail) {
-//     this.#email = newEmail;
-//   }
-// }
+const avocado = new Client({
+  login: "Avocado",
+  email: "avocado@dog.woof",
+});
 
-// const mango = new Client({
-//   login: "Mango",
-//   email: "mango@dog.woof",
-// });
+console.log(`avocado`, avocado);
+console.log(avocado.login); // Avocado
+avocado.login = "MangoAvocado";
+console.log(avocado.login); // MangoAvocado
+console.log(Client.priority);
 
-// console.log(`mango`, mango);
+  const lorry = new Client({
+    login: 'Lorry',
+    email: 'lorry@mail.com',
+  });
 
-// console.log(mango.login); // Mango
-// mango.login = "Mangodoge";
-// console.log(mango.login); // Mangodoge
-// console.log(Client.priority);
+  console.log(lorry.login); // Lorry
+  lorry.login = 'Lorrycutie';
+console.log(lorry.login); // Lorrycutie
+  
 
-//   const poly = new Client({
-//     login: 'Poly',
-//     email: 'poly@mail.com',
-//   });
-
-//   console.log(poly.login); // Poly
-//   poly.login = 'Polycutie';
-//   console.log(poly.login); // Polycutie
 
 // 5)  Напиши клас Notes который управляет коллекцией заметок в свойстве items.
 // Заметка это объект со свойствами text и priority.
@@ -357,22 +287,58 @@ class Person {
 //     NORMAL: 'normal',
 //     HIGH: 'high'
 //   }
-
 // let id = Date.now();
 
-// const myNotes = new Notes([]);
+class Notes {
 
-// myNotes.addNote({  text: 'Моя первая заметка', priority: Notes.Priority.LOW })
-// console.log(myNotes.items);
+  static Priority = {
+    LOW: 'low',
+    NORMAL: 'normal',
+    HIGH: 'high'
+  }
 
-// myNotes.addNote({ text: 'Моя вторая заметка', priority: Notes.Priority.NORMAL })
-// console.log(myNotes.items);
+  constructor(items) {
+    this.items = items;
+  }
 
-// myNotes.removeNote('Моя первая заметка');
-// console.log(myNotes.items);
+  addNote({text, priority}) {
+    let id = Date.now();
+    this.items.push({text, priority, id})
+  }
 
-// myNotes.updateNote('Моя вторая заметка', Notes.Priority.HIGH);
-// console.log(myNotes.items);
+  removeNote(text) {
+    for (const el of this.items) {
+      if (el.text === text) {
+        this.items.splice(this.items.indexOf(el), 1)
+      }
+    }
+  }
+
+  updateNote(text, newPriority) {
+    for (const el of this.items) {
+      if (el.text === text) {
+        el.priority = newPriority;
+      }
+    }
+  }
+}
+
+const myNotes = new Notes([]);
+myNotes.addNote({text: 'my first post', priority: 'low'})
+console.log(myNotes);
+
+
+myNotes.addNote({  text: 'Моя первая заметка', priority: Notes.Priority.LOW })
+console.log(myNotes.items);
+
+myNotes.addNote({ text: 'Моя вторая заметка', priority: Notes.Priority.NORMAL })
+console.log(myNotes.items);
+
+myNotes.removeNote('Моя первая заметка');
+console.log(myNotes.items);
+
+myNotes.updateNote('Моя вторая заметка', Notes.Priority.HIGH);
+console.log(myNotes.items);
 
 // class Guest {
 //   // Собственные свойства класса размещаем в конструкторе

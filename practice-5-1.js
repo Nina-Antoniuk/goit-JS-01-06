@@ -12,201 +12,150 @@
 //     // Привет, я {имя}
 //   },
 // };
+// 2) Вынести методы из обекта person в __proto__
 
-// function Person(firstName, lastName, age, gender, interests) {
-//   this.firstName = firstName;
-//   this.lastName = lastName;
-//   this.age = age;
-//   this.gender = gender;
-//   this.interests = interests;
-//   this.greeting = function () {
-//     console.log(`Привет я ${this.firstName} ${this.lastName}`);
-//   };
-//   this.bio = function () {
-//     console.log(
-//       `Привет ${this.firstName} мне ${this.age} лет. Мне нравится ${this.interests}`
-//     );
-//   };
-// }
-
-// function Person(config) {}
-
-// function Person({ firstName, lastName, age, gender, interests }) {
-//   //   this = {}
-//   this.firstName = firstName;
-//   this.lastName = lastName;
-//   this.age = age;
-//   this.gender = gender;
-//   this.interests = interests;
-//   this.greeting = function () {
-//     console.log(`Привет я ${this.firstName} ${this.lastName}`);
-//   };
-//   this.bio = function () {
-//     console.log(
-//       `Привет ${this.firstName} мне ${this.age} лет. Мне нравится ${this.interests}`
-//     );
-//   };
-//   // return this
-// }
-
-function Person(obj) {
-  //   this = {}
-  const { firstName, lastName, age, gender, interests } = obj;
+const Person = function ({ firstName, lastName, age, gender, interest }) {
   this.firstName = firstName;
   this.lastName = lastName;
   this.age = age;
   this.gender = gender;
-  this.interests = interests;
-  // return this
+  this.interest = interest;
 }
 
-// console.log(`Person`, Person.prototype);
-
-Person.prototype.greeting = function () {
-  console.log(`Привет я ${this.firstName} ${this.lastName}`);
+Person.prototype.bio = function() {
+ return `Привет я ${this.firstName} мне ${this.age} лет. Мне нравится ${this.interest}` ;
 };
 
-Person.prototype.bio = function () {
-  console.log(
-    `Привет ${this.firstName} мне ${this.age} лет. Мне нравится ${this.interests}`
-  );
-};
+Person.prototype.greeting = function() {
+  return `Привет, я ${this.firstName} ${this.lastName}`;
+}
 
-const user = new Person({
-  firstName: "Bob",
-  lastName: "Dou",
-  age: 21,
-  gender: "male",
-  interests: "football",
-});
-console.log('person prototype', Person.prototype);
+console.log('Person.prototype :>> ', Person.prototype);
 
-const user2 = new Person({
-  firstName: "Jack",
-  lastName: "Dou",
-  age: 35,
-  gender: "male",
-  interests: "basketball",
-});
 
-let arr = [];
-console.log(`arr`, arr);
+const user = new Person({ firstName: 'Jhon', lastName: 'Dou', age: 35, gender: 'male', interest: 'medicine' });
+console.log('user :>> ', user);
 
-// const user = new Person("Bob", "Dou", 21, "male", "football");
+console.log('Person.prototype === user.__proto__ :>> ', Person.prototype === user.__proto__);
+// console.log('user.prototype :>> ', user.prototype); // undefined
 
-// const result = Person({
-//   firstName: "Bob",
-//   lastName: "Dou",
-//   age: 21,
-//   gender: "male",
-//   interests: "football",
-// });
+console.log('user :>> ', user);
+console.log('user.firstName :>> ', user.firstName);
+console.log('user.bio :>> ', user.bio());
+console.log('user.greeeting :>> ', user.greeting());
 
-// console.log(`result`, result);
 
-// const user2 = {}
-// user2.firstName = 'Jack'
-// user2.lastName = 'Dou'
-// user2.age = 34
+// 3) Создать конструктор Teacher который наследует свойства Person и добавляет в обект поле subject
+// и метод greeting
 
-// console.log(`user`, user);
-// user.bio();
-// user.greeting();
+// 3) Создать конструктор Teacher который наследует свойства Person и добавляет в обект поле subject
+// и метод greeting
 
-// console.log(`user2`, user2);
-// user2.bio();
 
-function Teacher(obj) {
-  const { subject } = obj;
-  // this = {}
-  Person.call(this, obj);
+function Teacher(config) {
+  const { subject } = config;
+  Person.call(this, config);
   this.subject = subject;
 }
 
+
 Teacher.prototype = Object.create(Person.prototype);
 Teacher.prototype.constructor = Teacher;
+
+const teach = new Teacher({firstName: 'Jim', lastName: 'Dou', age: 60, gender: 'male', interest: 'phisics', subject: 'phisics' })
+
+console.log('teach :>> ', teach);
+console.log('Teacher.prototype :>> ', Teacher.prototype);
+
+
 
 Teacher.prototype.greeting = function () {
   console.log("I am teacher method");
 };
 
-const teacher1 = new Teacher({
-  firstName: "Bob",
-  lastName: "Dou",
-  age: 45,
-  gender: "male",
-  interests: "football",
-  subject: "Math",
-});
+console.log(teach.greeting());
 
-console.log(`teacher1`, teacher1);
-teacher1.greeting();
-
-// 2) Вынести методы из обекта person в __proto__
-
-// 3) Создать конструктор Teacher который наследует свойства Person и добавляет в обект поле subject
-// и метод greeting
 
 // 4) Создать конструктор Student который наследует свойства Person и изменяет метод greeting
 
-// function Person(name, age) {
-//   this.name = name;
-//   this.age = age;
-// }
+const Student = function (config) {
+  const { subject } = config;
+  Person.call(this, config);
+  this.subject = subject;
+}
+Student.prototype = Object.create(Person.prototype);
+Student.prototype.constructor = Student;
 
-// Person.prototype.hi = function () {
-//   console.log("Hello");
-// };
+  const student = new Student({ firstName: 'Avocado', lastName: 'Dou', age: 20, gender: 'female', interest: 'fashion', subject: 'Lawyer' })
 
-// const user = new Person("Bob", 25);
+console.log(student.greeting())
 
-// console.log(`user`, user);
-// user.hi();
 
-// function Student(name, age) {
-//   Person.call(this, name, age);
-// }
-// // Student.prototype = Object.create(Person.prototype);
-// // Student.prototype.constructor = Student;
-
-// const st = new Student("Jane", 23);
-
-// console.log(`st`, st);
-// st.hi();
 
 // 5) Напиши конструктор Notes который управляет коллекцией заметок в свойстве items.
 // Заметка это объект со свойствами text и priority.
 // Добавь конструктору статическое свойство Priority, в котором будет храниться объект с приоритетами.
-// {
-//     LOW: 'low',
-//     NORMAL: 'normal',
-//     HIGH: 'high'
-//   }
-
-// const myNotes = new Notes([]);
-
-// myNotes.addNote({  text: 'Моя первая заметка', priority: Notes.Priority.LOW })
-// console.log(myNotes.items);
-
-// myNotes.addNote({ text: 'Моя вторая заметка', priority: Notes.Priority.NORMAL })
-// console.log(myNotes.items);
-
-// myNotes.removeNote('Моя первая заметка');
-// console.log(myNotes.items);
-
-// myNotes.updateNote('Моя вторая заметка', Notes.Priority.HIGH);
-// console.log(myNotes.items);
-
-function Human(firstName, lastName) {
-	this.firstName = firstName,
-	this.lastName = lastName,
-	this.fullName = function() {
-		return this.firstName + " " + this.lastName;
-	}
+const priority = {
+    LOW: 'low',
+    NORMAL: 'normal',
+    HIGH: 'high'
 }
 
-var person1 = new Human("Virat", "Kohli");
+const Notes = function (items) {
+  this.items = items; 
+}
 
-console.log(person1)
-var person1 = new Human("Virat", "Kohli");
-var person2 = new Human("Sachin", "Tendulkar");
+Notes.prototype.addNote = function ({ text, priority }) {
+  const id = text.length;
+  this.items.push({ text, priority, id });
+}
+
+Notes.prototype.removeNote = function (text) {
+  for (let i = 0; i < this.items.length; i += 1) {
+    let item = this.items[i];
+    if (item.text === text) {
+      this.items.splice(this.items.indexOf(item), 1)
+    }
+  }
+}
+
+Notes.prototype.updateNote = function (text, priority) {
+  for (let i = 0; i < this.items.length; i += 1) {
+    let item = this.items[i];
+    if (item.text === text) {
+      item.priority = priority;
+    } 
+  }
+}
+
+const myNotes = new Notes([]);
+
+myNotes.addNote({ text: 'my first note', priority:  'low'});
+
+console.log('myNotes :>> ', myNotes);
+
+myNotes.addNote({  text: 'Моя первая заметка', priority: 'low' }) 
+console.log(myNotes.items);
+
+myNotes.addNote({ text: 'Моя вторая заметка', priority: 'normal' })  
+console.log(myNotes.items);
+
+myNotes.removeNote('Моя первая заметка');
+console.log(myNotes.items);
+
+myNotes.updateNote('Моя вторая заметка', 'high'); //Notes.Priority.HIGH
+console.log(myNotes.items);
+
+// function Human(firstName, lastName) {
+// 	this.firstName = firstName,
+// 	this.lastName = lastName,
+// 	this.fullName = function() {
+// 		return this.firstName + " " + this.lastName;
+// 	}
+// }
+
+// var person1 = new Human("Virat", "Kohli");
+
+// console.log(person1)
+// var person1 = new Human("Virat", "Kohli");
+// var person2 = new Human("Sachin", "Tendulkar");
